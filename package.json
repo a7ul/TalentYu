@@ -16,6 +16,7 @@
     "morgan": "~1.5.3",
     "node-monkey": "^0.2.16",
     "q": "^1.4.1",
+    "randomstring": "^1.1.0",
     "request": "^2.61.0",
     "serve-favicon": "~2.2.1"
   }
