@@ -9,7 +9,7 @@ var newIndeedSvc = require('../scripts/services/indeedSvc');
 var indeedSvc = new newIndeedSvc();
 var cheerio = require('cheerio');
 var _ = require('lodash');
-
+var transformer = require('../scripts/services/transformerSvc');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
   console.log(reqUrl);
   request(reqUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(JSON.parse(body).results);
+      console.log(transformer.formatGithub(JSON.parse(body).results));
     }
   });
   var linkedUrl = linkedSvc.searchLinkedIn("javascript", "developer", "delhi");
@@ -43,7 +43,7 @@ router.get('/', function (req, res, next) {
 
         return candidate.resume;
       });
-      console.log('final ', processedResults);
+      console.log('final ',processedResults);
     }
   });
   res.render('index', {
