@@ -17,11 +17,10 @@ router.post('/', function(req, res, next) {
 
   var place = req.body.place;
   var language = req.body.skill;
-  var state = req.body.state;
-
+  
   var gitUrl = gitSvc.searchGit(language, place, 1);
   var linkedUrl = linkedSvc.searchLinkedIn(language, "developer", place);
-  var indeedUrl = indeedSvc.searchIndeed(language, "developer", place + '-' + state);
+  var indeedUrl = indeedSvc.searchIndeed(language, "developer", place);
   var finalResponse = getAllCandidates(indeedUrl, linkedUrl, gitUrl);
   finalResponse.then(function(response) {
     res.status(200).json(response);
