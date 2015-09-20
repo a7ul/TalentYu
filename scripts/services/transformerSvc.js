@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var cheerio = require('cheerio');
 
 var transformerSvc = function() {
 
@@ -18,7 +19,7 @@ var transformerSvc = function() {
         profile_url: eachResult.userlistinfo_link,
         work_ex: '',
         image_url: eachResult.image,
-        misc_url: '',
+        misc_url: (eachResult['email_link/_text'])?'Email: '+eachResult['email_link/_text']:'',
         search_source: 'Github',
         misc_details: '',
         curr_stage: '',
@@ -30,14 +31,30 @@ var transformerSvc = function() {
     return formatted;
   };
 
-  var formatIndeed = function(results) {
-    var formatted = _.map(results, function(eachResult) {
+  var formatIndeed = function(body) {
+    $ = cheerio.load(body);
+    var results = $('.resultsList li .sre-content');
+    var processedResults = _.map(results, function(candidate) {
+      var candidateDomDataArray = candidate.children;
+      candidate.resume = {};
+      _.forEach(candidateDomDataArray, function(eachProperty) {
+        candidate.resume[eachProperty.attribs.class] = $(eachProperty).text();
+        if (eachProperty.attribs.class === 'app_name') {
+          candidate.resume.link = 'http://indeed.com' + eachProperty.children[0].attribs.href;
+        }
+      });
+      candidate.resume.name = (candidate.resume.app_name.split('-')[0] + '').trim();
+      candidate.resume.location = (candidate.resume.app_name.split('-')[1] + '').trim();
+      delete candidate.resume.app_name;
+      return candidate.resume;
+    });
+    var formatted = _.map(processedResults, function(eachResult) {
       return {
         f_name: ('' + eachResult.name).split(' ')[0],
         l_name: ('' + eachResult.name).split(' ')[1] || '',
         skill: '',
         location: eachResult.location,
-        profile_url: eachResult.userlistinfo_link,
+        profile_url: eachResult.link,
         work_ex: eachResult.experience,
         image_url: eachResult.image,
         misc_url: '',

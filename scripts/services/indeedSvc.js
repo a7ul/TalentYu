@@ -3,7 +3,7 @@ var express = require('express');
 var linkedSvc = function () {
 
   var urlConstructor = function (skill, role, location) {
-    var linkedUrl = "http://www.indeed.com/resumes/" + skill + "-" + role + "/" + "in-Bengaluru-Karnataka";
+    var linkedUrl = "http://www.indeed.com/resumes/" + skill + "-" + role + "/" + "in-"+location;
     var finalUrl = linkedUrl;
     return finalUrl;
   };

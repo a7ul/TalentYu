@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('node-monkey').start({host: "127.0.0.1", port:"50500"});
+// require('node-monkey').start({host: "127.0.0.1", port:"50500"});
 
 
 var routes = require('./routes/index');
