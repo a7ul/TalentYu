@@ -13,19 +13,20 @@ var q = require('q');
 var transformer = require('../scripts/services/transformerSvc');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  var language = 'Ruby';
-  var place = 'Bangalore';
-  var state = 'Karnataka';
+router.post('/', function(req, res, next) {
+
+  var place = req.body.place;
+  var language = req.body.skill;
+  var state = req.body.state;
 
   var gitUrl = gitSvc.searchGit(language, place, 1);
   var linkedUrl = linkedSvc.searchLinkedIn(language, "developer", place);
-  var indeedUrl = indeedSvc.searchIndeed(language, "developer", place+'-'+state);
+  var indeedUrl = indeedSvc.searchIndeed(language, "developer", place + '-' + state);
   var finalResponse = getAllCandidates(indeedUrl, linkedUrl, gitUrl);
-  finalResponse.then(function(res){
-    console.log('REACHED HERE',res);
-    res.send('res');
+  finalResponse.then(function(response) {
+    res.status(200).json(response);
   });
+
 });
 
 var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
@@ -35,7 +36,6 @@ var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
   request(indeedUrl, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       var indeedUnifiedResults = transformer.formatIndeed(body);
-      console.log('Indeed : ', indeedUnifiedResults);
       indeedDefer.resolve(indeedUnifiedResults);
     }
   });
@@ -49,13 +49,13 @@ var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
   request(gitUrl, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       var githubUnifiedResults = transformer.formatGithub(JSON.parse(body).results);
-      console.log('Github :', githubUnifiedResults);
       gitDefer.resolve(githubUnifiedResults);
     }
   });
-  return q.all([gitDefer.promise,indeedDefer.promise]).then(function(res){
-    var response = {'response':_.flatten(res)};
-    console.log('Final RESPONSE',response);
+  return q.all([gitDefer.promise, indeedDefer.promise]).then(function(res) {
+    var response = {
+      'response': _.flatten(res)
+    };
     return response;
   });
 };
