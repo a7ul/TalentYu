@@ -3,9 +3,11 @@ var cheerio = require('cheerio');
 
 var transformerSvc = function() {
 
-  var formatLinkedin = function(results) {
+  var formatLinkedin = function(body) {
+    $ = cheerio.load(body);
     var formatted = {};
-
+    var selected = $('.entityblock .standalone');
+    console.log(body , 'SELECTED',selected);
     return formatted;
   };
 

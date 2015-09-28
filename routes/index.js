@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
 
   var place = req.body.place;
   var language = req.body.skill;
-  
+
   var gitUrl = gitSvc.searchGit(language, place, 1);
   var linkedUrl = linkedSvc.searchLinkedIn(language, "developer", place);
   var indeedUrl = indeedSvc.searchIndeed(language, "developer", place);
@@ -31,6 +31,7 @@ router.post('/', function(req, res, next) {
 var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
   var indeedDefer = q.defer();
   var gitDefer = q.defer();
+  var linkedinDefer = q.defer();
 
   request(indeedUrl, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -38,12 +39,13 @@ var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
       indeedDefer.resolve(indeedUnifiedResults);
     }
   });
-  // request(linkedUrl, function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-  //     console.log('Linkedin ',JSON.parse(body));
-  //
-  //   }
-  // });
+
+  request(linkedUrl, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var linkedinUnifiedResults = transformer.formatLinkedin(body);
+      linkedinDefer.resolve(linkedinUnifiedResults);
+    }
+  });
 
   request(gitUrl, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -51,7 +53,7 @@ var getAllCandidates = function(indeedUrl, linkedUrl, gitUrl) {
       gitDefer.resolve(githubUnifiedResults);
     }
   });
-  return q.all([gitDefer.promise, indeedDefer.promise]).then(function(res) {
+  return q.all([gitDefer.promise,linkedinDefer.promise,indeedDefer.promise]).then(function(res) {
     var response = {
       'response': _.flatten(res)
     };
