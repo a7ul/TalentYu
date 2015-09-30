@@ -7,7 +7,6 @@ var _ = require('lodash');
 var requestManager = function() {
 
   var fetchAllResponses = function(allSiteConfigs, substitutions) {
-
     var promiseArray = [];
 
     _.forEach(allSiteConfigs, function(eachSiteConfigObject) {
@@ -30,17 +29,14 @@ var requestManager = function() {
           defer.reject(error);
         }
       });
-
       promiseArray.push(defer.promise);
     });
-
     return q.all(promiseArray);
   };
 
   return {
     fetchAllResponses: fetchAllResponses
   };
-
 }();
 
 module.exports = requestManager;
