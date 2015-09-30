@@ -1,6 +1,8 @@
 var cheerio = require('cheerio');
 var _ = require('lodash');
-
+//=============================
+//Sample Config for reference
+//=============================
 // var config = {
 //   repeatItemGroup: 'li.sre',
 //   dataFormat: {
@@ -38,9 +40,14 @@ var scrapperX = function() {
       var allConfigDataKeys = Object.keys(config.dataFormat);
       var scrappedItem = {};
       _.forEach(allConfigDataKeys, function(eachKey) {
-        var selector = config.dataFormat[eachKey].selector;
-        var type = config.dataFormat[eachKey].type;
-        scrappedItem[eachKey] = getValueFromNode($(eachRepeatItem).find(selector), type);
+        if (typeof config.dataFormat[eachKey] === 'object') {
+          var selector = config.dataFormat[eachKey].selector;
+          var type = config.dataFormat[eachKey].type;
+          scrappedItem[eachKey] = getValueFromNode($(eachRepeatItem).find(selector), type);
+        } else {
+          scrappedItem[eachKey] = config.dataFormat[eachKey];
+        }
+
       });
       scrappedObject.push(scrappedItem);
     });

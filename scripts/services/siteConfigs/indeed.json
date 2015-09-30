@@ -1,0 +1,20 @@
+{
+  "url":"http://www.indeed.com/resumes/{{skill}}-{{role}}/{{country}}-{{location}}",
+  "repeatItemGroup": "li.sre",
+  "dataFormat": {
+    "name": {
+      "selector": ".app_name",
+      "type": "text"
+    },
+    "link": {
+      "selector": ".app_name > a",
+      "type": "attr:href"
+    },
+    "location": {
+      "selector": "location",
+      "type": "text"
+    },
+    "source":"indeed",
+    "baseUrl":"https://indeed.com"
+  }
+}

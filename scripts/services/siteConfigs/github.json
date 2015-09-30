@@ -1,0 +1,20 @@
+{
+  "url":"https://github.com/search?l={{skill}}&p={{page}}&q=location:{{location}}&type=Users",
+  "repeatItemGroup": ".user-list-item",
+  "dataFormat": {
+    "name": {
+      "selector": "div.user-list-info > a",
+      "type": "text"
+    },
+    "link": {
+      "selector": "div.user-list-info > a",
+      "type": "attr:href"
+    },
+    "imageUrl": {
+      "selector": "a > img",
+      "type": "attr:src"
+    },
+    "source":"github",
+    "baseUrl":"https://github.com"
+  }
+}
