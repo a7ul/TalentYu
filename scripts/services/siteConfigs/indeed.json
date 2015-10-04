@@ -1,20 +1,40 @@
 {
-  "url":"http://www.indeed.com/resumes/{{skill}}-{{role}}/{{country}}-{{location}}",
+  "url": "http://www.indeed.com/resumes/{{skill}}-{{role}}/{{country}}-{{location}}",
   "repeatItemGroup": "li.sre",
   "dataFormat": {
-    "name": {
-      "selector": ".app_name",
+    "f_name": {
+      "selector": ".app_link",
       "type": "text"
     },
-    "link": {
+    "l_name": "",
+    "skill": "",
+    "location": {
+      "selector": ".location",
+      "type": "text"
+    },
+    "profile_url": {
       "selector": ".app_name > a",
       "type": "attr:href"
     },
-    "location": {
-      "selector": "location",
+    "work_ex": {
+      "selector": ".experience",
       "type": "text"
     },
-    "source":"indeed",
-    "baseUrl":"https://indeed.com"
+    "image_url": "",
+    "misc_url": "",
+    "baseUrl": "https://indeed.com",
+    "search_source": "indeed",
+    "misc_details": {
+      "selector": ".last_updated",
+      "type": "text"
+    },
+    "education": {
+      "selector": ".education",
+      "type": "text"
+    },
+    "curr_stage": "",
+    "stage1_detials": "",
+    "stage2_details": "",
+    "stage3_details": ""
   }
 }

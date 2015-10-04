@@ -1,20 +1,41 @@
 {
-  "url":"https://github.com/search?l={{skill}}&p={{page}}&q=location:{{location}}&type=Users",
+  "url": "https://github.com/search?l={{skill}}&p={{page}}&q=location:{{location}}&type=Users",
   "repeatItemGroup": ".user-list-item",
   "dataFormat": {
-    "name": {
+    "f_name": {
       "selector": "div.user-list-info > a",
       "type": "text"
     },
-    "link": {
+    "l_name": "",
+    "skill": "",
+    "location": {
+      "selector": "div.user-list-info > ul > li:nth-child(1) > span",
+      "type": "text"
+    },
+    "profile_url": {
       "selector": "div.user-list-info > a",
       "type": "attr:href"
     },
-    "imageUrl": {
+    "work_ex": "",
+    "image_url": {
       "selector": "a > img",
       "type": "attr:src"
     },
-    "source":"github",
-    "baseUrl":"https://github.com"
+    "email": {
+      "selector": ".email",
+      "type": "text"
+    },
+    "misc_url": "",
+    "baseUrl": "https://github.com",
+    "search_source": "github",
+    "misc_details": {
+      "selector": ".join-date",
+      "type": "text"
+    },
+    "education":"",
+    "curr_stage": "",
+    "stage1_detials": "",
+    "stage2_details": "",
+    "stage3_details": ""
   }
 }
