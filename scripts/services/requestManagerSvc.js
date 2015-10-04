@@ -1,7 +1,7 @@
 var q = require('q');
 var request = require('request');
 var urlManager = require('./urlManagerSvc');
-var scrapperX = require('./scrapperX');
+var scrapperX = require('scrapper-x');
 var _ = require('lodash');
 
 var requestManager = function() {
