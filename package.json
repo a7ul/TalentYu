@@ -21,6 +21,7 @@
     "q": "^1.4.1",
     "randomstring": "^1.1.0",
     "request": "^2.61.0",
+    "scrapper-x": "^1.0.2",
     "serve-favicon": "~2.2.1",
     "x-ray": "^2.0.2",
     "xray": "^0.5.0"
