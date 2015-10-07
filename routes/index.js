@@ -15,13 +15,13 @@ router.post('/', function(req, res, next) {
   substitutions = {
     country: 'in',
     location: req.body.loc,
-    role: 'role',
+    role: 'developer',
     skill: 'Javascript',
     page: 1
   };
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
     requestManager.fetchAllResponses(allSiteConfigs, substitutions).then(function(allSiteResponses) {
-      //console.log('allSiteResponses', allSiteResponses);
+      console.log('allSiteResponses', allSiteResponses);
       res.status(200).json(_.flatten(allSiteResponses));
     });
   });

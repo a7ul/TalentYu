@@ -12,7 +12,7 @@ var urlManager = function() {
       }
     });
     if (!!substitutions.page && codedURL.search('{{page}}')!== -1) {
-      for (var p = 1; p < parseInt(substitutions.page); ++p) {
+      for (var p = 1; p <= parseInt(substitutions.page); ++p) {
         allUrls.push(codedURL.replace('{{page}}', p));
       }
     } else {
