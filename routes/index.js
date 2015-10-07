@@ -15,8 +15,8 @@ router.post('/', function(req, res, next) {
   substitutions = {
     country: 'in',
     location: req.body.loc,
-    role: 'role',
-    skill: 'Javascript',
+    role: 'Developer',
+    skill: req.body.skill,
     page: 1
   };
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
