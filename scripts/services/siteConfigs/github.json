@@ -21,21 +21,19 @@
       "selector": "a > img",
       "type": "attr:src"
     },
-    "email": {
+    "misc_url": {
       "selector": ".email",
       "type": "text"
     },
-    "misc_url": "",
     "baseUrl": "https://github.com",
     "search_source": "github",
     "misc_details": {
       "selector": ".join-date",
       "type": "text"
     },
-    "education":"",
     "curr_stage": "",
-    "stage1_detials": "",
-    "stage2_details": "",
-    "stage3_details": ""
+    "isFlagged": false,
+    "isInit": false,
+    "stageDetails": {}
   }
 }

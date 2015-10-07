@@ -28,13 +28,9 @@
       "selector": ".last_updated",
       "type": "text"
     },
-    "education": {
-      "selector": ".education",
-      "type": "text"
-    },
     "curr_stage": "",
-    "stage1_detials": "",
-    "stage2_details": "",
-    "stage3_details": ""
+    "isFlagged": false,
+    "isInit": false,
+    "stageDetails": {}
   }
 }

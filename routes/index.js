@@ -8,6 +8,7 @@ var newDbSvc = require('../scripts/services/dbService');
 var dbSvc = new newDbSvc();
 
 
+
 router.post('/', function(req, res, next) {
   var substitutions = req.body;
   console.log(req.body);
@@ -18,14 +19,12 @@ router.post('/', function(req, res, next) {
     skill: 'Javascript',
     page: 1
   };
-
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
     requestManager.fetchAllResponses(allSiteConfigs, substitutions).then(function(allSiteResponses) {
       //console.log('allSiteResponses', allSiteResponses);
       res.status(200).json(_.flatten(allSiteResponses));
     });
   });
-
 });
 router.post('/addToFav', function(req, res, next) {
   console.log(req.body.favourite);
@@ -36,10 +35,10 @@ router.get('/getFavData', function(req, res, next) {
   console.log('in fav data');
   dbSvc.searchFromDbSkills();
 });
-router.post('/modifyFav',function(req,res,next){
-  dbSvc.updateFavData(req.body).then(function(result){
+router.post('/modifyFav', function(req, res, next) {
+  dbSvc.updateFavData(req.body).then(function(result) {
     return res;
-  }).fail(function(error){
+  }).fail(function(error) {
     return res;
   });
 });
