@@ -31,11 +31,6 @@
     "curr_stage": "",
     "isFlagged": false,
     "isInit": false,
-    "stageDetails": {}
+    "stageDetails": ""
   }
 }
-/*
-{
-  "selector": ".education",
-  "type": "text"
-}*/
