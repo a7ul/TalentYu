@@ -18,12 +18,12 @@ var favouriteSchema = new Schema({
     search_source:String,
     misc_details: String,
     curr_stage: String,
-    stage1_detials: String,
-    stage2_details: String,
-    stage3_details: String
+    isFlagged: Boolean,
+    isInit: Boolean,
+    stageDetails: Object
 });
 
-var Favourite = mongoose.model('Favourite', timeMatrixSchema);
+var Favourite = mongoose.model('Favourite', favouriteSchema);
 
 favouriteSchema.pre('save', function(next) {
     var currentDate = new Date();
