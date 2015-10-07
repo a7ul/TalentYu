@@ -4,22 +4,22 @@ var siteConfigManager = require('../scripts/services/siteConfigManagerSvc');
 var requestManager = require('../scripts/services/requestManagerSvc');
 var _ = require('lodash');
 
-// router.get('/', function(req, res, next) {
-//   res.status(200).send('Port :' + (process.env.PORT || '3000'));
-// });
 router.get('/', function(req, res, next) {
+  res.status(200).send('Port :' + (process.env.PORT || '3000'));
+});
+router.post('/', function(req, res, next) {
   // var country = req.body.country;
   // var location = req.body.location;
   // var skill = req.body.skill;
   // var role = req.body.role;
   var substitutions = req.body;
-  substitutions = {
-    country: 'in',
-    location: 'Bangalore',
-    role: 'role',
-    skill: 'Javascript',
-    page: 1
-  };
+  // substitutions = {
+  //   country: 'in',
+  //   location: 'Bangalore',
+  //   role: 'role',
+  //   skill: 'Javascript',
+  //   page: 1
+  // };
 
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
     requestManager.fetchAllResponses(allSiteConfigs, substitutions).then(function(allSiteResponses) {

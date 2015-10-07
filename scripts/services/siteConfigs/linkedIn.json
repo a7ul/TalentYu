@@ -26,15 +26,14 @@
     },
     "misc_url": "",
     "baseUrl": "",
-    "education": "",
     "search_source": "linkedin",
     "misc_details": {
       "selector": ".expanded",
       "type": "text"
     },
     "curr_stage": "",
-    "stage1_detials": "",
-    "stage2_details": "",
-    "stage3_details": ""
+    "isFlagged": false,
+    "isInit": false,
+    "stageDetails": {}
   }
 }
