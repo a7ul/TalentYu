@@ -2,6 +2,7 @@ var randomstring = require("randomstring");
 var express = require('express');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var q = require('q');
 var Favourite = require('../../scripts/models/candidateModel');
 
 var dbService = function() {
@@ -23,16 +24,16 @@ var dbService = function() {
       work_ex: favourite.work_ex,
       image_url: favourite.image_url,
       misc_url: favourite.misc_url,
+      location_ui: favourite.location_ui,
       search_source: favourite.search_source,
       misc_details: favourite.misc_details,
-      curr_stage: String,
-      isFlagged: Boolean,
-      isInit: Boolean,
-      stageDetails: Object
+      curr_stage: '1',
+      isFlagged: false,
+      isInit: false,
+      stageDetails: {}
     });
-
-
-    Favourite.save(function(err) {
+    console.log(favouriteCandidate);
+    favouriteCandidate.save(function(err) {
       if (err) {
         console.log(err);
         throw err;
@@ -41,43 +42,45 @@ var dbService = function() {
     });
   }
 
-  var searchFromDbFavourite = function(uid) {
-    Favourite.find({
-      uid: uid
-    }, function(err, favourite) {
-      if (err) return console.error(err);
-      return favourite;
-    });
-  }
-
-  var searchFromDbCities = function(skill) {
-    Favourite.find({
-      skill: skill
-    }, function(err, favourites) {
-      if (err) return console.error(err);
-      var cities = _.uniq(_.pluck(favourites, 'skill'));
-      return cities;
-    });
-  }
+  // var searchFromDbFavourite = function(uid) {
+  //   Favourite.find({
+  //     uid: uid
+  //   }, function(err, favourite) {
+  //     if (err) return console.error(err);
+  //     return favourite;
+  //   });
+  // }
+  //
+  // var searchFromDbCities = function(skill) {
+  //   Favourite.find({
+  //     skill: skill
+  //   }, function(err, favourites) {
+  //     if (err) return console.error(err);
+  //     var cities = _.uniq(_.pluck(favourites, 'skill'));
+  //     return cities;
+  //   });
+  // }
 
   var searchFromDbSkills = function() {
     console.log('in search query');
+    var dbProm = q.defer();
     Favourite.find({},function(err, favourites) {
       if (err) return console.log(err);
-      var skills = _.uniq(_.pluck(favourites, 'location'));
-      return skills;
+      console.log(favourites);
+      dbProm.resolve(favourites);
+      return dbProm.promise;
     });
   }
 
-  var searchFromDbFavourites = function(skill, location) {
-    Favourite.find({
-      skill: skill,
-      location: location
-    }, function(err, favourites) {
-      if (err) return console.error(err);
-      return favourites;
-    });
-  }
+  // var searchFromDbFavourites = function(skill, location) {
+  //   Favourite.find({
+  //     skill: skill,
+  //     location: location
+  //   }, function(err, favourites) {
+  //     if (err) return console.error(err);
+  //     return favourites;
+  //   });
+  // }
   return {
     addToDB: addToDB,
     searchFromDbSkills: searchFromDbSkills

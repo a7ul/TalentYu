@@ -33,7 +33,9 @@ router.post('/addToFav', function(req, res, next) {
 });
 router.get('/getFavData', function(req, res, next) {
   console.log('in fav data');
-  dbSvc.searchFromDbSkills();
+  dbSvc.searchFromDbSkills().then(function(data){
+    return data;
+  });
 });
 router.post('/modifyFav', function(req, res, next) {
   dbSvc.updateFavData(req.body).then(function(result) {

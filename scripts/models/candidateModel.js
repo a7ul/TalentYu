@@ -15,6 +15,7 @@ var favouriteSchema = new Schema({
     work_ex: String,
     image_url: String,
     misc_url:String,
+    location_ui: String,
     search_source:String,
     misc_details: String,
     curr_stage: String,
