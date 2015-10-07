@@ -6,7 +6,9 @@ var urlManager = function() {
     console.log('substitutions from request', substitutions);
     var codedURL = _.clone(codedUrl);
     _.forEach(replacementKeywordsFromRequest, function(keyword) {
-      codedURL = codedURL.replace('{{' + keyword + '}}', substitutions[keyword]);
+      if(keyword !== 'page'){
+        codedURL = codedURL.replace('{{' + keyword + '}}', substitutions[keyword]);
+      }
     });
     return codedURL;
   };
