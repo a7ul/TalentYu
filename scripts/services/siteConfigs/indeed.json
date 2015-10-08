@@ -1,5 +1,5 @@
 {
-  "url": "http://www.indeed.com/resumes/{{skill}}-{{role}}/{{country}}-{{location}}",
+  "url": "http://www.indeed.com/resumes/{{skill}}-{{role}}/in-{{location}}?co={{country}}&sort=date",
   "repeatItemGroup": "li.sre",
   "dataFormat": {
     "f_name": {

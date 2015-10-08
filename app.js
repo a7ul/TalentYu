@@ -5,11 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors')
-
-
 // require('node-monkey').start({host: "127.0.0.1", port:"50500"});
-
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

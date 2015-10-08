@@ -16,6 +16,7 @@ var requestManager = function() {
       console.log('Scrapping : ', siteName, ' Urls:', siteJsonConfig.url);
 
       _.forEach(siteJsonConfig.url,function(eachUrl){
+        console.log(eachUrl);
         var defer = q.defer();
         request.get({
           url: eachUrl,

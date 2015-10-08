@@ -64,12 +64,11 @@ var dbService = function() {
   var searchFromDbSkills = function() {
     console.log('in search query');
     var dbProm = q.defer();
-    Favourite.find({},function(err, favourites) {
+    Favourite.find({}, function(err, favourites) {
       if (err) return console.log(err);
-      console.log(favourites);
       dbProm.resolve(favourites);
-      return dbProm.promise;
     });
+    return dbProm.promise;
   }
 
   // var searchFromDbFavourites = function(skill, location) {
