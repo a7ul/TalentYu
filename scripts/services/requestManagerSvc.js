@@ -21,7 +21,8 @@ var requestManager = function() {
         request.get({
           url: eachUrl,
           headers: {
-            'Content-Type:': 'text/plain'
+            'Content-Type': 'text/plain',
+            'origin': 'http://localhost',
           }
         }, function(error, response, body) {
           if (!error && response.statusCode == 200) {
