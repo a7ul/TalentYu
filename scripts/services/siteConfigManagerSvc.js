@@ -15,6 +15,7 @@ var siteConfigManager = function() {
           throw err;
         }
         var config = {};
+        console.log('file contents ',jsonFileContent);
         config[file.split('.')[0]] = JSON.stringify(JSON.parse(jsonFileContent));
         defer.resolve(config);
       });
