@@ -1,5 +1,5 @@
 {
-  "url": "https://www.linkedin.com/title/{{skill}}-{{role}}/{{location}}",
+  "url": "https://www.linkedin.com/title/{{skill}}-developer/{{location}}",
   "repeatItemGroup": "li.item-container",
   "dataFormat": {
     "f_name": {

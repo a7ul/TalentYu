@@ -10,11 +10,15 @@ var fs = require('fs');
 var Converter = require('csvtojson').Converter;
 var multer = require('multer');
 var upload = multer({
-    dest: './uploads/'
+  dest: './uploads/'
 });
 
 var param = {};
 
+
+router.get('/', function(req, res, next) {
+  res.render('index.jade');
+});
 
 
 router.post('/', function(req, res, next) {
@@ -25,7 +29,7 @@ router.post('/', function(req, res, next) {
     location: req.body.loc,
     role: 'Developer',
     skill: req.body.skill,
-    page: 1
+    page: 3
   };
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
     requestManager.fetchAllResponses(allSiteConfigs, substitutions).then(function(allSiteResponses) {
@@ -41,42 +45,55 @@ router.post('/addToFav', function(req, res, next) {
 });
 router.get('/getFavData', function(req, res, next) {
   console.log('in fav data');
-  dbSvc.searchFromDbSkills().then(function(data){
-    console.log('dbsvc data',data);
+  dbSvc.searchFromDbSkills().then(function(data) {
+    console.log('dbsvc data', data);
     res.status(200).json(_.flatten(data));
   });
 });
 router.post('/modifyFav', function(req, res, next) {
-  dbSvc.updateFavData(req.body).then(function(result) {
-    return res;
-  }).fail(function(error) {
-    return res;
+  console.log('post called');
+  dbSvc.updateFavourite(req.body.favourite).then(function(result) {
+    console.log('modified');
+    res.status(200);
   });
 });
 router.post('/uploadCSV', upload.single('CSV'), function(req, res) {
-    var tempPath = req.file.path;
-    var targetPath = 'uploads/' + req.file.originalname;
-    console.log(req.file);
-    var src = fs.createReadStream(tempPath);
-    var dest = fs.createWriteStream(targetPath);
-    src.pipe(dest);
-    src.on('end', function() {
-        fs.unlink(tempPath);
-        var fileStream = fs.createReadStream("./uploads/" + req.file.originalname);
-        console.log('converting');
-        var converter = new Converter(param);
-        fileStream.pipe(converter);
-        converter.on("end_parsed", function(jsonObj) {
-            console.log('coverted:' + jsonObj);
-            googleSvc.setLocations(jsonObj);
-            res.render('uploadSuccess');
-            fileStream.destroy();
-            res.end();
-        });
+  var tempPath = req.file.path;
+  var targetPath = 'uploads/' + req.file.originalname;
+  console.log(req.file);
+  var src = fs.createReadStream(tempPath);
+  var dest = fs.createWriteStream(targetPath);
+  src.pipe(dest);
+  src.on('end', function() {
+    fs.unlink(tempPath);
+    var fileStream = fs.createReadStream("./uploads/" + req.file.originalname);
+    console.log('converting');
+    var converter = new Converter(param);
+    fileStream.pipe(converter);
+    converter.on("end_parsed", function(jsonObj) {
+      for (var i = 0; i < jsonObj.length; i++) {
+        var tempObj = {};
+        tempObj.f_name = jsonObj[i]['firstname'];
+        tempObj.l_name = jsonObj[i]['lastname'];
+        tempObj.skill = jsonObj[i]['skill'];
+        tempObj.location = jsonObj[i]['location'];
+        tempObj.profile_url = jsonObj[i]['profilelink'];
+        tempObj.work_ex = jsonObj[i]['workex'];
+        tempObj.image_url = '';
+        tempObj.misc_url = '';
+        tempObj.location_ui = jsonObj[i]['location'];
+        tempObj.search_source = 'external';
+        tempObj.misc_details = jsonObj[i]['misc'];
+        dbSvc.addToDB(tempObj);
+      }
+      res.render('uploadSuccess');
+      fileStream.destroy();
+      res.end();
     });
-    src.on('error', function(err) {
-        res.end('error');
-    });
+  });
+  src.on('error', function(err) {
+    res.end('error');
+  });
 });
 
 module.exports = router;

@@ -28,7 +28,7 @@ var requestManager = function() {
             defer.resolve(scrapperX.scrape(body, siteJsonConfig));
           } else {
             console.log('Error for ', siteName, response.statusCode, response);
-            defer.reject(error);
+            defer.resolve([]);
           }
         });
         promiseArray.push(defer.promise);

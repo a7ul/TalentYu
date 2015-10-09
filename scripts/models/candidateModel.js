@@ -21,7 +21,7 @@ var favouriteSchema = new Schema({
     curr_stage: String,
     isFlagged: Boolean,
     isInit: Boolean,
-    stageDetails: Object
+    stage_details: String
 });
 
 var Favourite = mongoose.model('Favourite', favouriteSchema);

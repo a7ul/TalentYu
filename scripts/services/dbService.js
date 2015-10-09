@@ -27,10 +27,10 @@ var dbService = function() {
       location_ui: favourite.location_ui,
       search_source: favourite.search_source,
       misc_details: favourite.misc_details,
-      curr_stage: '1',
+      curr_stage: favourite.curr_stage,
       isFlagged: false,
-      isInit: false,
-      stageDetails: {}
+      isInit: favourite.isInit,
+      stage_details: favourite.stage_details
     });
     console.log(favouriteCandidate);
     favouriteCandidate.save(function(err) {
@@ -41,26 +41,6 @@ var dbService = function() {
       console.log('User created!');
     });
   }
-
-  // var searchFromDbFavourite = function(uid) {
-  //   Favourite.find({
-  //     uid: uid
-  //   }, function(err, favourite) {
-  //     if (err) return console.error(err);
-  //     return favourite;
-  //   });
-  // }
-  //
-  // var searchFromDbCities = function(skill) {
-  //   Favourite.find({
-  //     skill: skill
-  //   }, function(err, favourites) {
-  //     if (err) return console.error(err);
-  //     var cities = _.uniq(_.pluck(favourites, 'skill'));
-  //     return cities;
-  //   });
-  // }
-
   var searchFromDbSkills = function() {
     console.log('in search query');
     var dbProm = q.defer();
@@ -71,18 +51,27 @@ var dbService = function() {
     return dbProm.promise;
   }
 
-  // var searchFromDbFavourites = function(skill, location) {
-  //   Favourite.find({
-  //     skill: skill,
-  //     location: location
-  //   }, function(err, favourites) {
-  //     if (err) return console.error(err);
-  //     return favourites;
-  //   });
-  // }
+  var updateFavourite = function(favourite) {
+    var dbProm1 = q.defer();
+    console.log('in update fav');
+    console.log(favourite);
+    Favourite.findOneAndUpdate({
+      uid: favourite.uid
+    }, {
+      stage_details: favourite.stage_details,
+      isInit: favourite.isInit,
+      curr_stage: favourite.curr_stage
+    }, function(err, favourite) {
+      if (err) throw err;
+      dbProm1.resolve(favourite);
+    });
+      return dbProm1.promise;
+  }
+
   return {
     addToDB: addToDB,
-    searchFromDbSkills: searchFromDbSkills
+    searchFromDbSkills: searchFromDbSkills,
+    updateFavourite: updateFavourite
   }
 }
 
