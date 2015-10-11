@@ -20,15 +20,27 @@ router.get('/', function(req, res, next) {
   res.render('index.jade');
 });
 
+function capitalise(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
 router.post('/', function(req, res, next) {
   var substitutions = req.body;
+  var tempGitLoc = req.body.loc.split(' ');
+  var tempLocationNY =capitalise(req.body.loc);
+  console.log(tempLocationNY);
+  console.log(tempGitLoc);
   console.log(req.body);
+  if(tempLocationNY === "New york"){
+    tempLocationNY = "Greater New York City Area";
+  }
   substitutions = {
     country: req.body.country,
-    location: req.body.loc,
+    location: capitalise(req.body.loc),
+    linkedinlocation: tempLocationNY,
     role: 'Developer',
-    skill: req.body.skill,
+    gitlocation: tempGitLoc.join('+'),
+    skill: capitalise(req.body.skill),
     page: 3
   };
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {

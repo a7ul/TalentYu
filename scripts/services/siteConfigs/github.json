@@ -1,5 +1,5 @@
 {
-  "url": "https://github.com/search?l={{skill}}&p={{page}}&q=location:{{location}}&type=Users",
+  "url": "https://github.com/search?l={{skill}}&p={{page}}&q=location:\"{{gitlocation}}\"&type=Users",
   "repeatItemGroup": ".user-list-item",
   "dataFormat": {
     "f_name": {
