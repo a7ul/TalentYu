@@ -48,6 +48,8 @@ if (app.get('env') === 'development') {
   });
 }
 
+app.use(express.static('public'));
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {

@@ -24,6 +24,10 @@ function capitalise(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
+router.get('/',function(req,res,next){
+  
+});
+
 router.post('/', function(req, res, next) {
   var substitutions = req.body;
   var tempGitLoc = req.body.loc.split(' ');
