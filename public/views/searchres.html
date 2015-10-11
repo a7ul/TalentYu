@@ -1,0 +1,13 @@
+<div ng-include src="'views/sidenav.html'"></div> <!-- <div class="row bg-red navbar-fixed-top">
+  <div class="col-md-6">
+    <ul class="nav nav-pills top-result-nav">
+      <li role="presentation" ng-class="{'active active-custom':top30}" ng-click="showNumber('30')"><a>Top 30</a></li>
+      <li role="presentation" ng-class="{'active active-custom':top60}" ng-click="showNumber('30')"><a>Top 60</a></li>
+    </ul>
+  </div>
+  <div class="col-md-6  align-right">
+    <span class="subheader-search">Displaying results from Github,Indeed & LinkedIn</span>
+  </div>
+</div> --> <div class="col-md-10 col-md-offset-2 loader-custom" ng-if="showLoader" style="font-size: 3.5em;margin-top: 180px;font-weight:100"> <div class="col-md-4">Searching </div> <div class="col-md-6"> <span ng-hide="showCustomLoader" class="badge animateCustom" style="font-size:1.0em;font-weight:100">{{searchSource}}</span> </div> </div> <div class="wrapper-search"> <div class="row top-space-medium"> <div ng-include src="'views/sidenav.html'"></div> <div class="col-md-5 result-space md-whiteframe-z1" ng-repeat="person in persons"> <!-- <div class="col-md-1">
+        <span class="serial-no">{{person.sno}}</span>
+      </div> --> <div class="col-md-3"> <img ng-src="{{person.image_url}}" class="profile-image"> </div> <div class="col-md-8"> <div class="row"> <div class="col-md-10 col-md-offset-1"> <span class="person-name">{{person.f_name}} {{person.l_name}}</span> </div> </div> <div class="row"> <div class="col-md-10 col-md-offset-1">{{person.misc_url}}</div> </div> <div class="row"> <div class="col-md-10 col-md-offset-1">{{person.work_ex}}</div> </div> <div class="row" ng-show="person.search_source === &quot;linkedin&quot;"> <div class="col-md-10 col-md-offset-1" style="line-height:1.5;height:60px;overflow-y:scroll">{{person.misc_details}}</div> </div> </div> <div class="col-md-1 side-icons"> <span class="glyphicon glyphicon-star temp1" aria-hidden="true" ng-click="addToFav(person)"></span> <br> <img ng-click="openProfile(person)" src="{{person.imgUrl}}" aria-hidden="true" width="25" style="margin-left: -6px"> </div> </div> </div> </div> 
