@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {
     role: 'Developer',
     gitlocation: tempGitLoc.join('+'),
     skill: capitalise(req.body.skill),
-    page: 3
+    page: 5
   };
   siteConfigManager.getAllConfigs().then(function(allSiteConfigs) {
     requestManager.fetchAllResponses(allSiteConfigs, substitutions).then(function(allSiteResponses) {
